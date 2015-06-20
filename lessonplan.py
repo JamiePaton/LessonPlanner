@@ -14,7 +14,9 @@ import logging
 import unittest
 import hypothesis as hs
 
-from atom.api import Atom, Unicode, Range, Bool, observe
+import datetime as dt
+
+from atom.api import Atom, Unicode, Range, Bool, observe, Value
 
 import enaml
 from enaml.qt.qt_application import QtApplication
@@ -60,6 +62,23 @@ class LessonPlan(Atom):
         
         
     key_stage = Range(low=0)
+    subject = Unicode()
+    specification_point = Unicode()
+    national_curriculum_link = Unicode()
+    previous_lesson_link = Unicode()
+    topic = Unicode()
+    title = Unicode()
+    subtitle = Unicode()
+    
+    sequence_id = Unicode()
+    learning_objectives = Unicode()
+    activities = Unicode()
+    homework = Unicode()
+    key_terms = Unicode()
+    resources = Unicode()
+    group = Unicode()
+    date = Value(dt.date.today())
+    time = Unicode()
 
 def main(args):
     with enaml.imports():
