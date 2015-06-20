@@ -1,0 +1,16 @@
+from enaml.widgets.api import Window, Label, Field, Form
+from enaml.stdlib.fields import IntField
+
+enamldef LessonPlanForm(Form):
+    attr lessonplan
+    Label:
+        text = "Key Stage"
+    IntField:
+        minimum = 1
+        maximum = 5
+        value := lessonplan.key_stage
+
+enamldef LessonPlanView(Window):
+    attr lessonplan
+    LessonPlanForm:
+        lessonplan := parent.lessonplan

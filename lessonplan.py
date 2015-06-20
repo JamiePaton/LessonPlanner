@@ -14,24 +14,62 @@ import logging
 import unittest
 import hypothesis as hs
 
-class LessonPlan(object):
+from atom.api import Atom, Unicode, Range, Bool, observe
+
+import enaml
+from enaml.qt.qt_application import QtApplication
+
+class LessonPlan(Atom):
     """
     Attributes
     ----------
+    key_stage : int
+        the key stage the lesson is aimed at, e.g. KS3
+    
+    subject : str
+        the subject, e.g physics, chemistry, or biology
     
     Methods
     -------
+    
     
     Notes
     -----
     
     """
-    def __init__(self):
-        pass
+#    def __init__(self):
+#        self.key_stage
+#        self.subject
+#        self.specification_point
+#        self.national_curriculum_link
+#        self.previous_lesson_link
+#        self.topic
+#        self.title
+#        self.subtitle
+#        
+#        self.sequence_id
+#        self.learning_objectives
+#        self.activities
+#        self.homework
+#        self.key_terms
+#        self.resources
+#        
+#        self.group
+#        self.date
+#        self.time
+        
+        
+    key_stage = Range(low=0)
 
 def main(args):
+    with enaml.imports():
+        from lesson_view import LessonPlanView
     
-    return None
+    lesson = LessonPlan(key_stage=2)
+    app = QtApplication()
+    view = LessonPlanView(lessonplan=lesson)
+    view.show()
+    app.start()
     
 class Testing(unittest.TestCase):
     """
