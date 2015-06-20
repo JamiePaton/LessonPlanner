@@ -20,6 +20,15 @@ class JSONObject(object):
         return json.dumps(self, default=lambda o: o.__dict__, 
                           sort_keys=True, indent=4, cls=Encoder)
 
+def load_json_file(filename):
+    with open(filename, 'r') as jsonfile:
+        json_data = jsonfile.read()
+    return json_data
+
+def save_json_file(filename, json_data):
+    with open(filename, 'w') as jsonfile:
+        jsonfile.write(json_data)
+
 if __name__ == '__main__':
     print ''.join([TITLE, ' v', VERSION, ' ', AUTHOR])
 
