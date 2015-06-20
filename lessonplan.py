@@ -21,7 +21,9 @@ from atom.api import Atom, Unicode, Range, Bool, observe, Value
 import enaml
 from enaml.qt.qt_application import QtApplication
 
-class LessonPlan(Atom):
+from jsonobject import JSONObject
+
+class EnamlLessonPlan(Atom, JSONObject):
     """
     Attributes
     ----------
@@ -79,6 +81,10 @@ class LessonPlan(Atom):
     group = Unicode()
     date = Value(dt.date.today())
     time = Unicode()
+    
+    @observe('key_stage')
+    def print_self(self, change):
+        print self
 
 def main(args):
     with enaml.imports():
@@ -88,6 +94,7 @@ def main(args):
     app = QtApplication()
     view = LessonPlanView(lessonplan=lesson)
     view.show()
+    print lesson
     app.start()
     
 class Testing(unittest.TestCase):
