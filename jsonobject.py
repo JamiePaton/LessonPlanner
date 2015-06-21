@@ -10,6 +10,7 @@ AUTHOR = 'Jamie Paton'
 import json
 import datetime as dt
 import time
+import logging
 
 class Encoder(json.JSONEncoder):
     def default(self, obj):
@@ -24,8 +25,10 @@ class JSONObject(object):
                           sort_keys=True, indent=4, cls=Encoder)
 
 def load_json_file(filename):
+    logger = logging.getLogger(__name__)
+    logger.debug('#     loading json file {}'.format(filename))
     with open(filename, 'r') as jsonfile:
-        json_data = jsonfile.read()
+        json_data = json.loads(jsonfile.read())
     return json_data
 
 def save_json_file(filename, json_data):
