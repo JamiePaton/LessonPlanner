@@ -1,33 +1,58 @@
 # -*- coding: utf-8 -*-
 """
+Implements main logic for the Lesson Planner application
+
 Created on Sat Jun 20 23:29:56 2015
 
-@author: Jamie
+@author: Jamie E Paton
 """
 TITLE = 'Lesson Planner'
-VERSION = '0.0.2'
+VERSION = '0.0.3'
 AUTHOR = 'Jamie E Paton'
 TEST = 0
 
 import sys
 import os
+
 import logging
 import logging.config
-import unittest
-import hypothesis as hs
-import json
 
+import hypothesis as hs
+import unittest
+
+import json
 import jsonobject
 
-
 class LessonPlan(jsonobject.JSONObject):
-    def __init__(self, content, teaching, logistics):
+    """
+    Holds information for a lesson plan.
+    
+    Attributes
+    ----------
+    content : LessonContent
+        Holds lesson content related information.
+    teaching : LessonTeaching
+        Holds information about the teaching / delivery of content. 
+    logistics : LessonLogistics, optional
+        Holds information about the date, time and group for this lesson.
+    """
+    def __init__(self, content, teaching, logistics=None):
+        logger.info('Initialising lesson.')
+        
+        logger.debug("content:\n{}".format(str(content)))
         self.content = content
+        
+        logger.debug("teaching:\n{}".format(str(teaching)))
         self.teaching = teaching
+        
+        logger.debug("logistics:\n{}".format(str(logistics)))
         self.logistics = logistics
 
 
 class LessonContent(jsonobject.JSONObject):
+    """
+    Holds lesson content related information.
+    """
     def __init__(self,
                  key_stage,
                  subject,
@@ -50,6 +75,16 @@ class LessonContent(jsonobject.JSONObject):
 
 
 class LessonTeaching(jsonobject.JSONObject):
+    """
+    Holds information about the teaching / delivery of content. 
+    
+    Attributes
+    ----------
+    learning_objectives : list
+        a list of learning objectives for the lesson
+    activities : list
+        a list of activities for the lesson
+    """
     def __init__(self,
                  learning_objectives,
                  activities):
@@ -58,6 +93,9 @@ class LessonTeaching(jsonobject.JSONObject):
 
 
 class LessonLogistics(jsonobject.JSONObject):
+    """
+    Holds information about the date, time and group for this lesson.
+    """
     def __init__(self,
                  group,
                  date,
@@ -231,9 +269,15 @@ class Testing(unittest.TestCase):
     """
 
 
+def imports():
+    import types
+    for name, val in globals().items():
+        if isinstance(val, types.ModuleType):
+            yield val.__name__
+
 if __name__ == '__main__':
-#    logging.basicConfig(level=logging.DEBUG)
     setup_logging(default_level=logging.DEBUG)
     logger = logging.getLogger(__name__)
     logger.info(''.join([TITLE, ' v', VERSION, ' ', AUTHOR]))
+    logger.debug('Imported modules:\n' + '\n'.join(list(imports())))
     sys.exit(main(sys.argv))
