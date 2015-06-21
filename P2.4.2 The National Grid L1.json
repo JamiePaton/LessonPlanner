@@ -1,0 +1,69 @@
+{
+    "content": {
+        "key_stage": 4, 
+        "national_curriculum_link": "physics at home", 
+        "previous_lesson_link": "DC electricity", 
+        "sequence_id": 1, 
+        "specification_point": "P2.4.2", 
+        "subject": "physics", 
+        "subtitle": "How do we get electricity?", 
+        "title": "The National Grid", 
+        "topic": "AC electricity"
+    }, 
+    "delivery": {
+        "activities": [
+            {
+                "assessment_for_learning": null, 
+                "category": "exam technique", 
+                "differentiation": null, 
+                "directions": null, 
+                "length": "10 minutes", 
+                "notes": null, 
+                "order": 3, 
+                "pupil_activity": "attempt to answer exam question from a previous paper", 
+                "pupil_learning": "consolidation of previous learning", 
+                "resources": null, 
+                "risk_assessment": null, 
+                "teacher_activity": null, 
+                "title": "exam question"
+            }
+        ], 
+        "learning_objectives": [
+            {
+                "command": {
+                    "level": "knowledge", 
+                    "word": "describe"
+                }, 
+                "context": "of the national grid", 
+                "level": "knowledge", 
+                "skill_statement": "the structure", 
+                "success_criteria": "I can describe the structure of the national grid"
+            }, 
+            {
+                "command": {
+                    "level": "understanding", 
+                    "word": "explain"
+                }, 
+                "context": "of mains electricity", 
+                "level": "understanding", 
+                "skill_statement": "the dangers", 
+                "success_criteria": "I can explain the dangers of mains electricity"
+            }, 
+            {
+                "command": {
+                    "level": "evaluation", 
+                    "word": "suggest"
+                }, 
+                "context": "to protect from electrocution", 
+                "level": "evaluation", 
+                "skill_statement": "safety measures", 
+                "success_criteria": "I can suggest safety measures to protect from electrocution"
+            }
+        ]
+    }, 
+    "logistics": {
+        "date": 1434848313.0, 
+        "group": "7K5", 
+        "time": "10"
+    }
+}

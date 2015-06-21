@@ -8,11 +8,14 @@ TITLE = ''
 VERSION = '0.0.1'
 AUTHOR = 'Jamie Paton'
 import json
+import datetime as dt
+import time
 
 class Encoder(json.JSONEncoder):
     def default(self, obj):
-        if isinstance(obj, datetime.datetime):
-            return int(mktime(obj.timetuple()))
+        if isinstance(obj, dt.datetime):
+            print 'fish'
+            return int(time.mktime(obj.timetuple()))
         return json.JSONEncoder.default(self, obj)
 
 class JSONObject(object):

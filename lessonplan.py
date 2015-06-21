@@ -13,6 +13,8 @@ import sys
 import logging
 import unittest
 import hypothesis as hs
+import datetime as dt
+import time
 
 import jsonobject
 
@@ -31,7 +33,8 @@ class LessonContent(jsonobject.JSONObject):
                  previous_lesson_link,
                  topic,
                  title,
-                 subtitle):
+                 subtitle,
+                 sequence_id):
         self.key_stage = key_stage
         self.subject = subject
         self.specification_point = specification_point
@@ -40,15 +43,24 @@ class LessonContent(jsonobject.JSONObject):
         self.topic = topic
         self.title = title
         self.subtitle = subtitle
+        self.sequence_id = sequence_id
 
 
 class LessonTeaching(jsonobject.JSONObject):
     def __init__(self,
-                 learning_objectives):
+                 learning_objectives,
+                 activities):
         self.learning_objectives = learning_objectives
+        self.activities = activities
 
 class LessonLogistics(jsonobject.JSONObject):
-    pass
+    def __init__(self,
+                 group,
+                 date,
+                 time):
+        self.group = group
+        self.date = date
+        self.time = time
 
 class Activity(jsonobject.JSONObject):
     def __init__(self, 
@@ -63,7 +75,8 @@ class Activity(jsonobject.JSONObject):
                  notes,
                  length,
                  risk_assessment,
-                 resources):
+                 resources,
+                 order):
         self.title = title
         self.category = category
         self.teacher_activity = teacher_activity
@@ -76,6 +89,7 @@ class Activity(jsonobject.JSONObject):
         self.length = length
         self.risk_assessment = risk_assessment
         self.resources = resources
+        self.order = order
 
 class RiskAssessment(jsonobject.JSONObject):
     def __init__(self, risk, severity, chance, control_measures):
@@ -106,6 +120,14 @@ class LearningObjective(jsonobject.JSONObject):
         if level is None:
             self.level = self.command.level
 
+def save_lesson(lesson, filename=None):
+    if filename is None:
+        filename = "{} {} L{}.json".format(lesson.content.specification_point,
+                             lesson.content.title,
+                             lesson.content.sequence_id)
+        with open(filename, 'w') as jsonfile:
+            jsonfile.write(str(lesson))
+
 def main(args):
     # Define learning objectives
     cw1 = CommandWord('describe', 'knowledge')    
@@ -116,11 +138,25 @@ def main(args):
     lo2 = LearningObjective(cw2, 'the dangers', context='of mains electricity')
     lo3 = LearningObjective(cw3, 'safety measures', context='to protect from electrocution')
     
-    content = LessonContent(4, 'physics', 'P2.4.2', 'physics at home', 'DC electricity', 'AC electricity', 'The National Grid', 'How do we get electricity?')
-    teaching = LessonTeaching([lo1, lo2, lo3])
-    logistics = LessonLogistics()
+    content = LessonContent(4, 'physics', 'P2.4.2', 'physics at home', 'DC electricity', 'AC electricity', 'The National Grid', 'How do we get electricity?', 1)
+    act1 = Activity(title = 'exam question',
+             category = 'exam technique',
+             teacher_activity = None,
+             pupil_activity = 'attempt to answer exam question from a previous paper',
+             pupil_learning = 'consolidation of previous learning',
+             assessment_for_learning = None,
+             differentiation = None,
+             directions = None,
+             notes = None,
+             length = '10 minutes',
+             risk_assessment = None,
+             resources = None,
+             order = 3)
+    teaching = LessonTeaching([lo1, lo2, lo3], [act1])
+    logistics = LessonLogistics('7K5', time.mktime(dt.datetime.today().timetuple()), '10')
     lesson = LessonPlan(content, teaching, logistics)
-    print lesson
+    save_lesson(lesson)
+
     
     
 class Testing(unittest.TestCase):
