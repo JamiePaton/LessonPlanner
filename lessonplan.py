@@ -10,23 +10,22 @@ AUTHOR = 'Jamie E Paton'
 TEST = 0
 
 import sys
+import os
 import logging
 import logging.config
 import unittest
 import hypothesis as hs
-import datetime as dt
-import time
-import pprint
-import os
 import json
 
 import jsonobject
+
 
 class LessonPlan(jsonobject.JSONObject):
     def __init__(self, content, teaching, logistics):
         self.content = content
         self.teaching = teaching
         self.logistics = logistics
+
 
 class LessonContent(jsonobject.JSONObject):
     def __init__(self,
@@ -57,6 +56,7 @@ class LessonTeaching(jsonobject.JSONObject):
         self.learning_objectives = learning_objectives
         self.activities = activities
 
+
 class LessonLogistics(jsonobject.JSONObject):
     def __init__(self,
                  group,
@@ -66,8 +66,9 @@ class LessonLogistics(jsonobject.JSONObject):
         self.date = date
         self.time = time
 
+
 class Activity(jsonobject.JSONObject):
-    def __init__(self, 
+    def __init__(self,
                  title,
                  category,
                  teacher_activity,
@@ -95,6 +96,7 @@ class Activity(jsonobject.JSONObject):
         self.resources = resources
         self.order = order
 
+
 class RiskAssessment(jsonobject.JSONObject):
     def __init__(self, risk, severity, chance, control_measures):
         self.risk = risk
@@ -102,13 +104,15 @@ class RiskAssessment(jsonobject.JSONObject):
         self.chance = chance
         self.control_measures = control_measures
 
+
 class CommandWord(jsonobject.JSONObject):
     def __init__(self, word, level):
         self.word = word
         self.level = level
 
+
 class LearningObjective(jsonobject.JSONObject):
-    def __init__(self, 
+    def __init__(self,
                  command,
                  skill_statement,
                  success_criteria=None,
@@ -119,10 +123,11 @@ class LearningObjective(jsonobject.JSONObject):
         self.skill_statement = skill_statement
         self.context = context
         if success_criteria is None and context is not None:
-            self.success_criteria = ' '.join(['I can', self.command.word, 
+            self.success_criteria = ' '.join(['I can', self.command.word,
                                               self.skill_statement, self.context])
         if level is None:
             self.level = self.command.level
+
 
 def save_lesson(lesson, filename=None):
     if filename is None:
@@ -132,36 +137,37 @@ def save_lesson(lesson, filename=None):
         with open(filename, 'w') as jsonfile:
             jsonfile.write(str(lesson))
 
+
 def load_lesson(filename):
     logger.debug('#     loading lesson from {}'.format(filename))
     lesson_dict = jsonobject.load_json_file(filename)
     logger.debug(str(lesson_dict))
-    
+
     content = LessonContent(**lesson_dict['content'])
     logger.debug(str(content))
-    
+
     logger.debug('#     create and populate learning objective list')
     learning_objectives = []
     for lo in lesson_dict['teaching']['learning_objectives']:
         logger.debug(str(lo))
         lo['command'] = CommandWord(**lo['command'])
         learning_objectives.append(lo)
-    
+
     logger.debug('#     create and populate activities list')
     activities = []
     for act in lesson_dict['teaching']['activities']:
         logger.debug(str(act))
         activities.append(act)
-        
+
     teaching = LessonTeaching(learning_objectives, activities)
-    
+
     logistics = LessonLogistics(**lesson_dict['logistics'])
-    logger.debug(str(logistics)) 
-    
+    logger.debug(str(logistics))
+
     return LessonPlan(content, teaching, logistics)
 
-def setup_logging(default_path='loggingconfig.json', default_level=logging.INFO,
-    env_key='LOG_CFG'):
+def setup_logging(default_path='logs/loggingconfig.json', default_level=logging.INFO,
+                  env_key='LOG_CFG'):
     """Setup logging configuration
 
     """
@@ -175,6 +181,7 @@ def setup_logging(default_path='loggingconfig.json', default_level=logging.INFO,
         logging.config.dictConfig(config)
     else:
         logging.basicConfig(level=default_level)
+
 
 def main(args):
 #    # Define learning objectives
@@ -206,19 +213,19 @@ def main(args):
 #    save_lesson(lesson)
     lesson = load_lesson('P2.4.2 The National Grid L1.json')
     #print lesson
-    
-    
+
+
 class Testing(unittest.TestCase):
     """
-    
+
     Methods
     -------
-    
-    
+
+
     Notes
     -----
     @given(parameter=hs.strategies.integers())
-    
+
     def test_something(parameter):
         assert type(parameter) == int
     """
@@ -230,4 +237,3 @@ if __name__ == '__main__':
     logger = logging.getLogger(__name__)
     logger.info(''.join([TITLE, ' v', VERSION, ' ', AUTHOR]))
     sys.exit(main(sys.argv))
-

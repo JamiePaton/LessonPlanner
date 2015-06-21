@@ -1,0 +1,50 @@
+[INFO]  	2015-06-21 03:07:01 PM	lessonplan.<module>
+Lesson Planner v0.0.2 Jamie E Paton 
+
+[DEBUG]  	2015-06-21 03:07:01 PM	lessonplan.load_lesson
+#     loading lesson from P2.4.2 The National Grid L1.json 
+
+[DEBUG]  	2015-06-21 03:07:01 PM	jsonobject.load_json_file
+#     loading json file P2.4.2 The National Grid L1.json 
+
+[DEBUG]  	2015-06-21 03:07:01 PM	lessonplan.load_lesson
+{u'content': {u'subtitle': u'How do we get electricity?', u'title': u'The National Grid', u'topic': u'AC electricity', u'sequence_id': 1, u'key_stage': 4, u'specification_point': u'P2.4.2', u'national_curriculum_link': u'physics at home', u'previous_lesson_link': u'DC electricity', u'subject': u'physics'}, u'teaching': {u'activities': [{u'category': u'exam technique', u'pupil_activity': u'attempt to answer exam question from a previous paper', u'title': u'exam question', u'notes': None, u'pupil_learning': u'consolidation of previous learning', u'assessment_for_learning': None, u'differentiation': None, u'length': u'10 minutes', u'risk_assessment': None, u'directions': None, u'teacher_activity': None, u'order': 3, u'resources': None}], u'learning_objectives': [{u'skill_statement': u'the structure', u'success_criteria': u'I can describe the structure of the national grid', u'command': {u'word': u'describe', u'level': u'knowledge'}, u'context': u'of the national grid', u'level': u'knowledge'}, {u'skill_statement': u'the dangers', u'success_criteria': u'I can explain the dangers of mains electricity', u'command': {u'word': u'explain', u'level': u'understanding'}, u'context': u'of mains electricity', u'level': u'understanding'}, {u'skill_statement': u'safety measures', u'success_criteria': u'I can suggest safety measures to protect from electrocution', u'command': {u'word': u'suggest', u'level': u'evaluation'}, u'context': u'to protect from electrocution', u'level': u'evaluation'}]}, u'logistics': {u'date': 1434848313.0, u'group': u'7K5', u'time': u'10'}} 
+
+[DEBUG]  	2015-06-21 03:07:01 PM	lessonplan.load_lesson
+{
+    "key_stage": 4, 
+    "national_curriculum_link": "physics at home", 
+    "previous_lesson_link": "DC electricity", 
+    "sequence_id": 1, 
+    "specification_point": "P2.4.2", 
+    "subject": "physics", 
+    "subtitle": "How do we get electricity?", 
+    "title": "The National Grid", 
+    "topic": "AC electricity"
+} 
+
+[DEBUG]  	2015-06-21 03:07:01 PM	lessonplan.load_lesson
+#     create and populate learning objective list 
+
+[DEBUG]  	2015-06-21 03:07:01 PM	lessonplan.load_lesson
+{u'skill_statement': u'the structure', u'success_criteria': u'I can describe the structure of the national grid', u'command': {u'word': u'describe', u'level': u'knowledge'}, u'context': u'of the national grid', u'level': u'knowledge'} 
+
+[DEBUG]  	2015-06-21 03:07:01 PM	lessonplan.load_lesson
+{u'skill_statement': u'the dangers', u'success_criteria': u'I can explain the dangers of mains electricity', u'command': {u'word': u'explain', u'level': u'understanding'}, u'context': u'of mains electricity', u'level': u'understanding'} 
+
+[DEBUG]  	2015-06-21 03:07:01 PM	lessonplan.load_lesson
+{u'skill_statement': u'safety measures', u'success_criteria': u'I can suggest safety measures to protect from electrocution', u'command': {u'word': u'suggest', u'level': u'evaluation'}, u'context': u'to protect from electrocution', u'level': u'evaluation'} 
+
+[DEBUG]  	2015-06-21 03:07:01 PM	lessonplan.load_lesson
+#     create and populate activities list 
+
+[DEBUG]  	2015-06-21 03:07:01 PM	lessonplan.load_lesson
+{u'category': u'exam technique', u'pupil_activity': u'attempt to answer exam question from a previous paper', u'title': u'exam question', u'notes': None, u'pupil_learning': u'consolidation of previous learning', u'assessment_for_learning': None, u'differentiation': None, u'length': u'10 minutes', u'risk_assessment': None, u'directions': None, u'teacher_activity': None, u'order': 3, u'resources': None} 
+
+[DEBUG]  	2015-06-21 03:07:01 PM	lessonplan.load_lesson
+{
+    "date": 1434848313.0, 
+    "group": "7K5", 
+    "time": "10"
+} 
+

@@ -3,7 +3,7 @@
     "disable_existing_loggers": false,
     "formatters": {
         "simple": {
-            "format": "[%(levelname)s]  \t%(asctime)s\t%(module)s.%(funcName)s\t\t%(message)s \n", 
+            "format": "[%(levelname)s]  \t%(message)s", 
             "datefmt": "%Y-%m-%d %I:%M:%S %p"
         },
             "console": {
@@ -16,7 +16,7 @@
         "console": {
             "class": "logging.StreamHandler",
             "level": "INFO",
-            "formatter": "console",
+            "formatter": "simple",
             "stream": "ext://sys.stdout"
         },
 
