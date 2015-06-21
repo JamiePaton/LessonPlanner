@@ -11,11 +11,14 @@ TEST = 0
 
 import sys
 import logging
+import logging.config
 import unittest
 import hypothesis as hs
 import datetime as dt
 import time
 import pprint
+import os
+import json
 
 import jsonobject
 
@@ -157,6 +160,22 @@ def load_lesson(filename):
     
     return LessonPlan(content, teaching, logistics)
 
+def setup_logging(default_path='loggingconfig.json', default_level=logging.INFO,
+    env_key='LOG_CFG'):
+    """Setup logging configuration
+
+    """
+    path = default_path
+    value = os.getenv(env_key, None)
+    if value:
+        path = value
+    if os.path.exists(path):
+        with open(path, 'rt') as f:
+            config = json.load(f)
+        logging.config.dictConfig(config)
+    else:
+        logging.basicConfig(level=default_level)
+
 def main(args):
 #    # Define learning objectives
 #    cw1 = CommandWord('describe', 'knowledge')    
@@ -206,7 +225,8 @@ class Testing(unittest.TestCase):
 
 
 if __name__ == '__main__':
-    logging.basicConfig(level=logging.DEBUG)
+#    logging.basicConfig(level=logging.DEBUG)
+    setup_logging(default_level=logging.DEBUG)
     logger = logging.getLogger(__name__)
     logger.info(''.join([TITLE, ' v', VERSION, ' ', AUTHOR]))
     sys.exit(main(sys.argv))
