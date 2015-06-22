@@ -13,6 +13,8 @@ TEST = 0
 
 import sys
 import os
+import time
+import datetime as dt
 
 import logging
 import logging.config
@@ -38,6 +40,7 @@ class LessonPlan(jsonobject.JSONObject):
     """
     def __init__(self, content, teaching, logistics=None):
         logger.info('Initialising lesson.')
+        super(type(self), self).__init__()
         
         logger.debug("content:\n{}".format(str(content)))
         self.content = content
@@ -63,6 +66,7 @@ class LessonContent(jsonobject.JSONObject):
                  title,
                  subtitle,
                  sequence_id):
+        super(type(self), self).__init__()
         self.key_stage = key_stage
         self.subject = subject
         self.specification_point = specification_point
@@ -88,6 +92,7 @@ class LessonTeaching(jsonobject.JSONObject):
     def __init__(self,
                  learning_objectives,
                  activities):
+        super(type(self), self).__init__()
         self.learning_objectives = learning_objectives
         self.activities = activities
 
@@ -100,6 +105,7 @@ class LessonLogistics(jsonobject.JSONObject):
                  group,
                  date,
                  time):
+        super(type(self), self).__init__()
         self.group = group
         self.date = date
         self.time = time
@@ -119,7 +125,8 @@ class Activity(jsonobject.JSONObject):
                  length,
                  risk_assessment,
                  resources,
-                 order):
+                 order=None):
+        super(type(self), self).__init__()
         self.title = title
         self.category = category
         self.teacher_activity = teacher_activity
@@ -134,9 +141,19 @@ class Activity(jsonobject.JSONObject):
         self.resources = resources
         self.order = order
 
+class Resource(jsonobject.JSONObject):
+    def __init__(self, name, responsible_person=None, risk_assessment=None, quantitiy=None, 
+                 notes=None):
+        super(type(self), self).__init__()
+        self.name = name
+        self.responsible_person = responsible_person
+        self.risk_asssessment = risk_assessment
+        self.quantity = quantity
+        self.notes = notes
 
 class RiskAssessment(jsonobject.JSONObject):
     def __init__(self, risk, severity, chance, control_measures):
+        super(type(self), self).__init__()
         self.risk = risk
         self.severity = severity
         self.chance = chance
@@ -145,6 +162,7 @@ class RiskAssessment(jsonobject.JSONObject):
 
 class CommandWord(jsonobject.JSONObject):
     def __init__(self, word, level):
+        super(type(self), self).__init__()
         self.word = word
         self.level = level
 
@@ -156,7 +174,7 @@ class LearningObjective(jsonobject.JSONObject):
                  success_criteria=None,
                  context=None,
                  level=None):
-
+        super(type(self), self).__init__()
         self.command = command
         self.skill_statement = skill_statement
         self.context = context
@@ -172,8 +190,8 @@ def save_lesson(lesson, filename=None):
         filename = "{} {} L{}.json".format(lesson.content.specification_point,
                              lesson.content.title,
                              lesson.content.sequence_id)
-        with open(filename, 'w') as jsonfile:
-            jsonfile.write(str(lesson))
+    with open(filename, 'w') as jsonfile:
+        jsonfile.write(str(lesson))
 
 
 def load_lesson(filename):
@@ -220,36 +238,38 @@ def setup_logging(default_path='logs/loggingconfig.json', default_level=logging.
     else:
         logging.basicConfig(level=default_level)
 
+# TODO Category class
 
 def main(args):
-#    # Define learning objectives
-#    cw1 = CommandWord('describe', 'knowledge')    
-#    cw2 = CommandWord('explain', 'understanding')    
-#    cw3 = CommandWord('suggest', 'evaluation')
-#    
-#    lo1 = LearningObjective(cw1, 'the structure', context='of the national grid')
-#    lo2 = LearningObjective(cw2, 'the dangers', context='of mains electricity')
-#    lo3 = LearningObjective(cw3, 'safety measures', context='to protect from electrocution')
-#    
-#    content = LessonContent(4, 'physics', 'P2.4.2', 'physics at home', 'DC electricity', 'AC electricity', 'The National Grid', 'How do we get electricity?', 1)
-#    act1 = Activity(title = 'exam question',
-#             category = 'exam technique',
-#             teacher_activity = None,
-#             pupil_activity = 'attempt to answer exam question from a previous paper',
-#             pupil_learning = 'consolidation of previous learning',
-#             assessment_for_learning = None,
-#             differentiation = None,
-#             directions = None,
-#             notes = None,
-#             length = '10 minutes',
-#             risk_assessment = None,
-#             resources = None,
-#             order = 3)
-#    teaching = LessonTeaching([lo1, lo2, lo3], [act1])
-#    logistics = LessonLogistics('7K5', time.mktime(dt.datetime.today().timetuple()), '10')
-#    lesson = LessonPlan(content, teaching, logistics)
-#    save_lesson(lesson)
-    lesson = load_lesson('P2.4.2 The National Grid L1.json')
+    # Define learning objectives
+    cw1 = CommandWord('describe', 'knowledge')    
+    cw2 = CommandWord('explain', 'understanding')    
+    cw3 = CommandWord('suggest', 'evaluation')
+    
+    lo1 = LearningObjective(cw1, 'the structure', context='of the national grid')
+    lo2 = LearningObjective(cw2, 'the dangers', context='of mains electricity')
+    lo3 = LearningObjective(cw3, 'safety measures', context='to protect from electrocution')
+    
+    content = LessonContent(4, 'physics', 'P2.4.2', 'physics at home', 'DC electricity', 'AC electricity', 'The National Grid', 'How do we get electricity?', 1)
+    act1 = Activity(title = 'exam question',
+             category = 'exam technique',
+             teacher_activity = None,
+             pupil_activity = 'attempt to answer exam question from a previous paper',
+             pupil_learning = 'consolidation of previous learning',
+             assessment_for_learning = None,
+             differentiation = None,
+             directions = None,
+             notes = None,
+             length = '10 minutes',
+             risk_assessment = None,
+             resources = None,
+             order = 3)
+    teaching = LessonTeaching([lo1, lo2, lo3], [act1])
+    logistics = LessonLogistics('7K5', time.mktime(dt.datetime.today().timetuple()), '10')
+    lesson = LessonPlan(content, teaching, logistics)
+    save_lesson(lesson, 'testing.json')
+
+#    lesson = load_lesson('P2.4.2 The National Grid L1.json')
     #print lesson
 
 
