@@ -42,5 +42,9 @@ Network Trash Folder
 Temporary Items
 .apdisk
 
-# logging files
+# Python files
+*.pyc
+*.pyo
+
+# Logging files
 *.log
