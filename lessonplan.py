@@ -222,6 +222,12 @@ def load_lesson(filename):
 
     return LessonPlan(content, teaching, logistics)
 
+def load_lesson2(filename):
+    logger.debug('#     loading lesson from {}'.format(filename))
+    lesson_dict = jsonobject.load_json_file(filename)
+    logger.debug(str(lesson_dict))
+    print globals()[lesson_dict['_type'].split('.')[1]]('content', 'teaching', 'logistics')
+
 def setup_logging(default_path='logs/loggingconfig.json', default_level=logging.INFO,
                   env_key='LOG_CFG'):
     """Setup logging configuration
@@ -267,9 +273,15 @@ def main(args):
     teaching = LessonTeaching([lo1, lo2, lo3], [act1])
     logistics = LessonLogistics('7K5', time.mktime(dt.datetime.today().timetuple()), '10')
     lesson = LessonPlan(content, teaching, logistics)
-    save_lesson(lesson, 'testing.json')
+    print lesson
+#    lnn = js.encode(lesson)
+#    js.encode()
+#    json.dumps()
+#    print type(js.decode(lnn)
+#    save_lesson(lnn, 'testing2.json')
 
 #    lesson = load_lesson('P2.4.2 The National Grid L1.json')
+#    lesson = load_lesson2('testing.json')
     #print lesson
 
 

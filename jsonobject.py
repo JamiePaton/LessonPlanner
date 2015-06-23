@@ -8,9 +8,12 @@ TITLE = ''
 VERSION = '0.0.1'
 AUTHOR = 'Jamie Paton'
 import json
+import jsonpickle
 import datetime as dt
 import time
 import logging
+
+jsonpickle.set_encoder_options('simplejson', sort_keys=True, indent=4)
 
 class Encoder(json.JSONEncoder):
     def default(self, obj):
@@ -30,11 +33,13 @@ class JSONObject(object):
     to get a _type attribute in the JSON file.
     """
     def __init__(self):
-        self._type = str(self.__class__.__module__ + "." + self.__class__.__name__)
+        pass
+        #self._type = str(self.__class__.__module__ + "." + self.__class__.__name__)
         
     def __repr__(self):
-        return json.dumps(self, default=lambda o: o.__dict__, 
-                          sort_keys=True, indent=4, cls=Encoder)
+        return jsonpickle.encode(self)
+#        return json.dumps(self, default=lambda o: o.__dict__, 
+#                          sort_keys=True, indent=4, cls=Encoder)
 
 def load_json_file(filename):
     logger = logging.getLogger(__name__)
