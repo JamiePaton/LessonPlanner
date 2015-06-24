@@ -56,7 +56,7 @@ class LessonPlan(jsonobject.JSONObject):
 
 def save_lesson(lesson, filename=None):
     if filename is None:
-        filename = "{} {} L{}.json".format(lesson.content.specification_point,
+        filename = "{0} {1} L{2}.json".format(lesson.content.specification_point,
                              lesson.content.title,
                              lesson.content.sequence_id)
     with open(filename, 'w') as jsonfile:
@@ -94,8 +94,8 @@ def setup_logging(default_path='logs/loggingconfig.json', default_level=logging.
 # TODO Category class
 
 def main(args):
-#    teaching.CommandWord('hello', 'greeting').save_to_file('cw.json')
-     print type(jsonobject.JSONObject.load_from_file('cw.json')).__name__
+    teaching.CommandWord('hello', 'greeting').save_to_file('cw.json')
+    print type(jsonobject.JSONObject.load_from_file('cw.json')).__name__
 
 
 
@@ -105,5 +105,5 @@ if __name__ == '__main__':
     setup_logging(default_level=logging.DEBUG)
     logger = logging.getLogger(__name__)
     logger.info(''.join([TITLE, ' v', VERSION, ' ', AUTHOR]))
-    logger.debug('Imported modules:\n' + '\n'.join(list(imports())))
+    logger.debug('Imported modules:\n\n\t' + '\n\t'.join(list(imports())))
     sys.exit(main(sys.argv))

@@ -14,6 +14,7 @@ import logging
 import unittest
 import hypothesis as hs
 import jsonobject
+from atom.api import Atom, Unicode
 
 class LessonTeaching(jsonobject.JSONObject):
     """
@@ -50,12 +51,20 @@ class LearningObjective(jsonobject.JSONObject):
         if level is None:
             self.level = self.command.level
 
+class CommandWord_Enaml(Atom):
+    word = Unicode()
+    level = Unicode()
+    description = Unicode()
+    
+    def save(self):
+        CommandWord(self.word, self.level, self.description).save_to_file('templates/commandwords/{0}.json'.format(self.word))
 
 class CommandWord(jsonobject.JSONObject):
-    def __init__(self, word, level):
+    def __init__(self, word, level, description=None):
         super(type(self), self).__init__()
         self.word = word
         self.level = level
+        self.description = description
 
 
 class Activity(jsonobject.JSONObject):
@@ -109,7 +118,15 @@ class RiskAssessment(jsonobject.JSONObject):
         self.control_measures = control_measures
 
 def main(args):
-    
+    import enaml
+    from enaml.qt.qt_application import QtApplication
+    with enaml.imports():
+        from enaml_views import CommandWordView
+    cw = CommandWord_Enaml(word='', level='', description='')
+    app = QtApplication()
+    view = CommandWordView(commandword=cw)
+    view.show()
+    app.start()
     return None
     
 class Testing(unittest.TestCase):

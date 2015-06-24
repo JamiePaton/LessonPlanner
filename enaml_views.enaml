@@ -1,0 +1,26 @@
+# views.enaml
+from enaml.widgets.api import Window, Form, Label, Field, PushButton, Container, GroupBox
+from enaml.layout.api import vertical, horizontal, align, spacer, vbox, hbox
+
+enamldef CommandWordView(Window):
+    attr commandword
+    GroupBox:
+        title = 'Command Word View'
+        constraints = [hbox(vbox(hbox(lbl1, fld1), hbox(lbl2, fld2), hbox(lbl3, fld3)),
+                            vbox(pb1, spacer))]
+        
+        Label: lbl1:
+            text = 'Word'
+        Field: fld1:
+            text := commandword.word
+        Label: lbl2:
+            text = 'Level'
+        Field: fld2:
+            text := commandword.level
+        Label: lbl3:
+            text = 'Description'
+        Field: fld3:
+            text := commandword.description
+        PushButton: pb1:
+            text = 'Save'
+            clicked :: commandword.save()
