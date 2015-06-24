@@ -1,0 +1,5 @@
+{
+    "level": "greeting",
+    "py/object": "teaching.CommandWord",
+    "word": "hello"
+}

@@ -5,7 +5,7 @@ Created on Tue Aug 19 02:57:12 2014
 @author: Jamie
 """
 TITLE = ''
-VERSION = '0.0.1'
+VERSION = '0.0.2'
 AUTHOR = 'Jamie Paton'
 import json
 import jsonpickle
@@ -35,6 +35,17 @@ class JSONObject(object):
     def __init__(self):
         pass
         #self._type = str(self.__class__.__module__ + "." + self.__class__.__name__)
+    
+    def save_to_file(self, filename):
+        json_string = jsonpickle.encode(self)
+        with open(filename, 'w') as jsonfile:
+            jsonfile.write(json_string)
+    
+    @staticmethod
+    def load_from_file(filename):
+        with open(filename, 'r') as jsonfile:
+            json_string = jsonfile.read()
+        return jsonpickle.decode(json_string)
         
     def __repr__(self):
         return jsonpickle.encode(self)

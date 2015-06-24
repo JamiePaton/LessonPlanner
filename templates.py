@@ -1,11 +1,11 @@
 # -*- coding: utf-8 -*-
 """
-Created on Wed Jun 24 14:54:04 2015
+Created on Wed Jun 24 15:00:52 2015
 
 @author: Jamie
 """
-TITLE = 'lessonplan logistics'
-VERSION = '0.0.1'
+TITLE = ''
+VERSION = '0.0.0'
 AUTHOR = 'Jamie E Paton'
 TEST = 0
 
@@ -13,20 +13,8 @@ import sys
 import logging
 import unittest
 import hypothesis as hs
-import jsonobject
+import glob
 
-class LessonLogistics(jsonobject.JSONObject):
-    """
-    Holds information about the date, time and group for this lesson.
-    """
-    def __init__(self,
-                 group,
-                 date,
-                 time):
-        super(type(self), self).__init__()
-        self.group = group
-        self.date = date
-        self.time = time
 
 def main(args):
     

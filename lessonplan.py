@@ -63,41 +63,13 @@ def save_lesson(lesson, filename=None):
         jsonfile.write(str(lesson))
 
 
-def load_lesson(filename):
-    logger.debug('#     loading lesson from {}'.format(filename))
-    lesson_dict = jsonobject.load_json_file(filename)
-    logger.debug(str(lesson_dict))
-
-    content = LessonContent(**lesson_dict['content'])
-    logger.debug(str(content))
-
-    logger.debug('#     create and populate learning objective list')
-    learning_objectives = []
-    for lo in lesson_dict['teaching']['learning_objectives']:
-        logger.debug(str(lo))
-        lo['command'] = CommandWord(**lo['command'])
-        learning_objectives.append(lo)
-
-    logger.debug('#     create and populate activities list')
-    activities = []
-    for act in lesson_dict['teaching']['activities']:
-        logger.debug(str(act))
-        activities.append(act)
-
-    teaching = LessonTeaching(learning_objectives, activities)
-
-    logistics = LessonLogistics(**lesson_dict['logistics'])
-    logger.debug(str(logistics))
-
-    return LessonPlan(content, teaching, logistics)
-
 def imports():
     import types
     for name, val in globals().items():
         if isinstance(val, types.ModuleType):
             yield val.__name__
 
-def load_lesson2(filename):
+def load_lesson(filename):
     logger.debug('#     loading lesson from {}'.format(filename))
     lesson_dict = jsonobject.load_json_file(filename)
     logger.debug(str(lesson_dict))
@@ -122,7 +94,8 @@ def setup_logging(default_path='logs/loggingconfig.json', default_level=logging.
 # TODO Category class
 
 def main(args):
-    pass
+#    teaching.CommandWord('hello', 'greeting').save_to_file('cw.json')
+     print type(jsonobject.JSONObject.load_from_file('cw.json')).__name__
 
 
 

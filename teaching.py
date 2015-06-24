@@ -13,6 +13,7 @@ import sys
 import logging
 import unittest
 import hypothesis as hs
+import jsonobject
 
 class LessonTeaching(jsonobject.JSONObject):
     """
