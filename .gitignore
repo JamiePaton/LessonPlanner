@@ -48,3 +48,6 @@ Temporary Items
 
 # Logging files
 *.log
+
+# Enaml cache
+__enamlcache__/
