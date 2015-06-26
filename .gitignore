@@ -52,3 +52,4 @@ Temporary Items
 # Enaml cache
 __enamlcache__/
 temp/
+templates/
