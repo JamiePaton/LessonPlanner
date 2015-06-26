@@ -17,6 +17,7 @@ from atom.api import Atom, Unicode
 
 import lessonplan
 
+
 class CommandWord_Enaml(Atom):
     word = Unicode()
     level = Unicode()
@@ -26,10 +27,19 @@ class CommandWord_Enaml(Atom):
         CommandWord(self.word, self.level,                  self.description).save_to_file('templates/commandwords/{0}.json'.format(self.word))
 
 def main(args):
+    logger.info('#  removing enaml cache folder')
+    import shutil
+    try:
+        shutil.rmtree('__enamlcache__')
+    except WindowsError:
+        logger.exception('folder does not exist')
+    import time
+    time.sleep(1)
+    
     import enaml
     from enaml.qt.qt_application import QtApplication
     with enaml.imports():
-        from enaml_views import CommandWordView
+        from gui_views import CommandWordView
     cw = CommandWord_Enaml(word='', level='', description='')
     app = QtApplication()
     view = CommandWordView(commandword=cw)
