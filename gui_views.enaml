@@ -1,6 +1,6 @@
 # views.enaml
 import enaml.widgets.api as widgets
-from enaml.widgets.api import Window, Form, Label, Field,  PushButton, Container, GroupBox, MultilineField
+from enaml.widgets.api import Window, Form, Label, Field,  PushButton, Container, GroupBox, MultilineField, ComboBox
 from enaml.layout.api import vertical, horizontal, align, spacer, vbox, hbox
 
 
@@ -8,23 +8,22 @@ enamldef CommandWordView(Window):
     attr commandword
     GroupBox:
         title = 'Command Word View'
-        constraints = [hbox(vbox(hbox(vbox(lbl1, spacer), fld1),
-                                 hbox(vbox(lbl2, spacer), fld2),
+        constraints = [hbox(vbox(hbox(lbl1, fld1),
+                                 hbox(vbox(lbl2, spacer), cbx1),
                                  hbox(vbox(lbl3, spacer), fld3)),
                                  vbox(pb1, spacer)),
-                        fld3.height == fld1.height + fld2.height,
-                        fld1.height == 50,
-                        fld2.height == 50,
+                        fld3.height == 50,
                         ]
         
         Label: lbl1:
             text = 'Word'
-        MultilineField: fld1:
+        Field: fld1:
             text := commandword.word
         Label: lbl2:
             text = 'Level'
-        MultilineField: fld2:
-            text := commandword.level
+        ComboBox: cbx1:
+            items := commandword.levels
+            selected_item >> commandword.level
         Label: lbl3:
             text = 'Description'
         MultilineField: fld3:

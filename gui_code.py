@@ -13,18 +13,21 @@ import sys
 import logging
 import unittest
 import hypothesis as hs
-from atom.api import Atom, Unicode
+from atom.api import Atom, Unicode, List
 
 import lessonplan
 
 
 class CommandWord_Enaml(Atom):
     word = Unicode()
+    levels = List()
     level = Unicode()
     description = Unicode()
     
     def save(self):
-        CommandWord(self.word, self.level,                  self.description).save_to_file('templates/commandwords/{0}.json'.format(self.word))
+        lessonplan.CommandWord(self.word, 
+                    self.level,
+                    self.description).save_to_file('templates/commandwords/{0}.json'.format(self.word))
 
 def main(args):
     logger.info('#  removing enaml cache folder')
@@ -40,7 +43,7 @@ def main(args):
     from enaml.qt.qt_application import QtApplication
     with enaml.imports():
         from gui_views import CommandWordView
-    cw = CommandWord_Enaml(word='', level='', description='')
+    cw = CommandWord_Enaml(word='', levels=['Knowledge', 'Comprehension', 'Application', 'Analysis', 'Synthesis', 'Evaluation'], description='')
     app = QtApplication()
     view = CommandWordView(commandword=cw)
     view.show()
